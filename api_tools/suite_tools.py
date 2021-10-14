@@ -11,7 +11,7 @@ class SuiteTools(object):
         response = requests.post(url=RESULT_URL + action,
                                  json=data, auth=AUTH)
         test_suite.suite_id = response.json().get('id')
-        return response.status_code
+        return response
 
     @staticmethod
     def delete_suite(test_suite, number_suite=0):
@@ -20,7 +20,7 @@ class SuiteTools(object):
         action = 'delete_suite/' + str(number_suite)
         headers = {'Content-Type': 'application/json'}
         response = requests.post(url=RESULT_URL + action, auth=AUTH, headers=headers)
-        return response.status_code
+        return response
 
     @staticmethod
     def get_suite(test_suite, id_suite=0):
@@ -29,4 +29,4 @@ class SuiteTools(object):
         action = 'get_suite/' + str(id_suite)
         headers = {'Content-Type': 'application/json'}
         response = requests.get(url=RESULT_URL + action, auth=AUTH, headers=headers)
-        return response.status_code
+        return response

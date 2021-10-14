@@ -14,18 +14,18 @@ def teardown():
     verify_expectations()
 
 
-def test_all_scenaries():
+def test_all_action():
     new_suite = TestSuite()
     # Добавили сьюту
     SuiteTools.add_suite(new_suite, PROJECT_ID)
     # Проверка через get запрос что она существует
-    assert (SuiteTools.get_suite(new_suite, new_suite.suite_id) == 200)
+    assert (SuiteTools.get_suite(new_suite, new_suite.suite_id).status_code == 200)
     # Создаем новый обьект секции
     section = Sections(new_suite.suite_id)
     # Добавляем в сьюту секцию
     SectionTools.add_sections(section)
     # Проверяем создана ли секция при помощи get запроса
-    assert(SectionTools.get_section(section) == 200)
+    assert(SectionTools.get_section(section).status_code == 200)
     # Добавляем кейс в секцию
     test_case = TestCase()
     CaseTools.add_case(test_case, section)
@@ -38,7 +38,7 @@ def test_all_scenaries():
     test_run = TestRun()
     RunTools.add_run(test_run, new_suite)
     # Проверяем что ран создан
-    assert(RunTools.get_run(test_run.run_id) == 200)
+    assert(RunTools.get_run(test_run.run_id).status_code == 200)
     # Добавляем случайный результат кейсу
     CaseTools.add_result_for_case(test_case, test_run.run_id)
     # Удаляем тест ран

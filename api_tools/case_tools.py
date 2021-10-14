@@ -12,7 +12,7 @@ class CaseTools(object):
         response = requests.post(url=RESULT_URL + action,
                                  json=data, auth=AUTH)
         case.case_id = (response.json().get('id'))
-        return response.status_code
+        return response
 
     @staticmethod
     def get_case(case):
@@ -30,7 +30,7 @@ class CaseTools(object):
                 "comment": case.title}
         response = requests.post(url=RESULT_URL + action,
                                  json=data, auth=AUTH)
-        return response.status_code
+        return response
 
     @staticmethod
     def delete_case(case):
@@ -38,4 +38,4 @@ class CaseTools(object):
         headers = {'Content-Type': 'application/json'}
         response = requests.post(url=RESULT_URL + action,
                                  headers=headers, auth=AUTH)
-        return response.status_code
+        return response

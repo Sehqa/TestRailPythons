@@ -13,7 +13,7 @@ class RunTools(object):
         response = requests.post(url=RESULT_URL + action,
                                  json=data, auth=AUTH)
         run.run_id = (response.json().get('id'))
-        return response.status_code
+        return response
 
     @staticmethod
     def get_run(run_id):
@@ -21,7 +21,7 @@ class RunTools(object):
         headers = {'Content-Type': 'application/json'}
         response = requests.get(url=RESULT_URL + action, json=headers,
                                 auth=AUTH)
-        return response.status_code
+        return response
 
     @staticmethod
     def delete_run(test_run, test_run_id=0):
@@ -31,4 +31,4 @@ class RunTools(object):
         headers = {'Content-Type': 'application/json'}
         response = requests.post(url=RESULT_URL + action, json=headers,
                                  auth=AUTH)
-        return response.status_code
+        return response
