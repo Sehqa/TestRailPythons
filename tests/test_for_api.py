@@ -17,35 +17,35 @@ def teardown():
 def test_all_action():
     new_suite = TestSuite()
     # Добавили сьюту
-    SuiteTools.add_suite(new_suite, PROJECT_ID)
+    assert (SuiteTools.add_suite(new_suite, PROJECT_ID).status_code == 200)
     # Проверка через get запрос что она существует
     assert (SuiteTools.get_suite(new_suite, new_suite.suite_id).status_code == 200)
     # Создаем новый обьект секции
     section = Sections(new_suite.suite_id)
     # Добавляем в сьюту секцию
-    SectionTools.add_sections(section)
+    assert (SectionTools.add_sections(section).status_code == 200)
     # Проверяем создана ли секция при помощи get запроса
-    assert(SectionTools.get_section(section).status_code == 200)
+    assert (SectionTools.get_section(section).status_code == 200)
     # Добавляем кейс в секцию
     test_case = TestCase()
-    CaseTools.add_case(test_case, section)
+    assert (CaseTools.add_case(test_case, section).status_code == 200)
     # Проверяем что кейс создан
-    assert((CaseTools.get_case(test_case)).status_code == 200)
+    assert ((CaseTools.get_case(test_case)).status_code == 200)
     # Проверяем что данные в кейсе соответствуют
     soft_assert(CaseTools.get_case(test_case).json().get('title') == test_case.title)
     soft_assert(CaseTools.get_case(test_case).json().get('template_id') == 1)
     # Создаем тест ран в нашей сьюте
     test_run = TestRun()
-    RunTools.add_run(test_run, new_suite)
+    assert (RunTools.add_run(test_run, new_suite).status_code == 200)
     # Проверяем что ран создан
-    assert(RunTools.get_run(test_run.run_id).status_code == 200)
+    assert (RunTools.get_run(test_run.run_id).status_code == 200)
     # Добавляем случайный результат кейсу
-    CaseTools.add_result_for_case(test_case, test_run.run_id)
+    assert (CaseTools.add_result_for_case(test_case, test_run.run_id).status_code == 200)
     # Удаляем тест ран
-    RunTools.delete_run(test_run)
+    assert (RunTools.delete_run(test_run).status_code == 200)
     # Удаляем кейс
-    CaseTools.delete_case(test_case)
+    assert (CaseTools.delete_case(test_case).status_code == 200)
     # Удаляем секцию
-    SectionTools.delete_section(section)
+    assert (SectionTools.delete_section(section).status_code == 200)
     # Удаляем сьюту
-    SuiteTools.delete_suite(new_suite)
+    assert (SuiteTools.delete_suite(new_suite).status_code == 200)
